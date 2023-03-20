@@ -16,7 +16,7 @@ import (
 func StartApi(wg *sync.WaitGroup, port string) {
 
 	internal := domain.User{
-		UUID:      "10",
+		UUID:      "1",
 		Username:  "internal10",
 		Email:     "internal10@99minutos.com",
 		Password:  "superPass",
@@ -25,7 +25,7 @@ func StartApi(wg *sync.WaitGroup, port string) {
 	}
 
 	customer := domain.User{
-		UUID:      "1",
+		UUID:      "2",
 		Username:  "customer",
 		Email:     "customer@mail.com",
 		Password:  "12345",

@@ -36,7 +36,7 @@ func (m *MapDB) Create(ctx context.Context, us *domain.User) error {
 	m.mDB[us.UUID] = us
 	_, exist := m.mDB[us.UUID]
 	if !exist {
-		return errors.New("value not found")
+		return errors.New("user not found")
 	}
 
 	return nil
@@ -48,7 +48,7 @@ func (m *MapDB) Read(ctx context.Context, UUID string) (*domain.User, error) {
 
 	or, exist := m.mDB[UUID]
 	if !exist {
-		return nil, errors.New("value not found")
+		return nil, errors.New("user not found")
 	}
 	return or, nil
 }
@@ -78,5 +78,5 @@ func (m *MapDB) FindByEmail(ctx context.Context, email string) (*domain.User, er
 		}
 	}
 
-	return nil, errors.New("value not found")
+	return nil, errors.New("user not found")
 }

@@ -51,24 +51,45 @@ func (h *Handler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 
 	role, err := h.valUser.Execute(ctx, shippingRequest.Email, shippingRequest.Password)
 	if err != nil {
+		responseErr := cmsapi.NewAPIError(http.StatusForbidden, "invalid-user", "CreateOrder", "handler", err)
+		log.Println(responseErr)
 		w.WriteHeader(http.StatusUnauthorized)
-		log.Println("invalid user")
-		w.Write([]byte("invalid user"))
+		err = json.NewEncoder(w).Encode(cmsapi.SuccessResponse(responseErr.StatusCode, responseErr.Message))
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			log.Println(err.Error())
+			w.Write([]byte(err.Error()))
+			return
+		}
 		return
 	}
 
 	if role != domain.INTERNAL && role != domain.CUSTOMER {
+		responseErr := cmsapi.NewAPIError(http.StatusForbidden, "invalid-user", "CreateOrder", "handler", err)
+		log.Println(responseErr)
 		w.WriteHeader(http.StatusUnauthorized)
-		log.Println("invalid user")
-		w.Write([]byte("invalid user"))
+		err = json.NewEncoder(w).Encode(cmsapi.SuccessResponse(responseErr.StatusCode, responseErr.Message))
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			log.Println(err.Error())
+			w.Write([]byte(err.Error()))
+			return
+		}
 		return
 	}
 
 	ur, err := h.userRepo.FindByEmail(ctx, shippingRequest.Email)
 	if err != nil {
+		responseErr := cmsapi.NewAPIError(http.StatusForbidden, "invalid-user", "CreateOrder", "handler", err)
+		log.Println(responseErr)
 		w.WriteHeader(http.StatusUnauthorized)
-		log.Println("invalid user")
-		w.Write([]byte("invalid user"))
+		err = json.NewEncoder(w).Encode(cmsapi.SuccessResponse(responseErr.StatusCode, responseErr.Message))
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			log.Println(err.Error())
+			w.Write([]byte(err.Error()))
+			return
+		}
 		return
 	}
 

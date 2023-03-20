@@ -36,7 +36,7 @@ func (m *MapDB) Create(ctx context.Context, or *domain.Order) error {
 	m.mDB[or.UUID] = or
 	_, exist := m.mDB[or.UUID]
 	if !exist {
-		return errors.New("value not found")
+		return errors.New("order not found")
 	}
 
 	return nil
@@ -48,7 +48,7 @@ func (m *MapDB) Read(ctx context.Context, UUID string) (*domain.Order, error) {
 
 	or, exist := m.mDB[UUID]
 	if !exist {
-		return nil, errors.New("value not found")
+		return nil, errors.New("order not found")
 	}
 	return or, nil
 }

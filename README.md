@@ -126,6 +126,29 @@ docker-compose ps
 
 ## Create order
 
+Para crear ordenes es necesario utilizar usuarios validos, que existan en la DDBB.
+Se crean 2 usuarios, con diferentes roles para realizar pruebas en la API:
+
+```go
+internal := domain.User{
+  UUID:      "1",
+  Username:  "internal10",
+  Email:     "internal10@99minutos.com",
+  Password:  "superPass",
+  Role:      domain.INTERNAL,
+  CreatedAt: time.Now().Unix(),
+ }
+
+customer := domain.User{
+  UUID:      "2",
+  Username:  "customer",
+  Email:     "customer@mail.com",
+  Password:  "12345",
+  Role:      domain.CUSTOMER,
+  CreatedAt: time.Now().Unix(),
+ }
+```
+
 ```shell script
 
 curl -X  POST  \
@@ -186,6 +209,7 @@ http://localhost:8080/api/v1/orders/create  \
     }'
 
 ```
+
 ---
 
 ## Postman
